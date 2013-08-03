@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io.connect('http://node-keyboard.herokuapp.com');
 
 socket.on('keypressed_broadcasted', function(data){
   console.log('keypressed_broadcasted: ' + data);
