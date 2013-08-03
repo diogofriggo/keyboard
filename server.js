@@ -10,7 +10,8 @@ var mimes = {
 };
 
 function handler(request, response){
-  var filePath = path.basename(decodeURI(request.url));
+  var filePath = path.basename(decodeURI(request.url)) || 'index.html';
+  console.log(filePath);
   fs.exists(filePath, function(exists){
     if(exists){
       fs.readFile(filePath, function(error, data){
