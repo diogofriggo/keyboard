@@ -37,13 +37,13 @@ $(function(){
       socket.emit('keypressed', note);
     }
   });
-  $('div#keyboard>div>div').on({ 'touchstart' : function(){ 
-    alert('on touchstart');
-    alert($(this));
-  } });
-  $('div#keyboard>div>div').touchstart(function(event){ 
-    alert('touchstart');
-    alert(event);
+  $('div#keyboard>div>div').on({ 
+    'touchstart' : function(arg1, arg2, arg3, arg4){ 
+      alert(JSON.stringify(arg1));
+      alert(JSON.stringify(arg2));
+      alert(JSON.stringify(arg3));
+      alert(JSON.stringify(arg4));
+    } 
   });
   //$(document).keyup(function(){ $key.toggleClass("active"); });
 });
