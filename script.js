@@ -1,15 +1,21 @@
-var socket = io.connect('http://node-keyboard.herokuapp.com');
 //var socket = io.connect('http://localhost');
+var socket = io.connect('http://node-keyboard.herokuapp.com');
 
 function animateKey(note){
     var $key = $('div#keyboard>div>div[data-note=' + note + ']');
     $key.toggleClass("active");
-    $('audio[src*=' + note + ']')[0].play();
     setTimeout(function () { $key.toggleClass("active"); }, 300);
 }
 
+function playSound(note){
+  var audio = $('audio[src*=' + note + ']')[0];
+  audio.load();
+  audio.play();
+}
+
 socket.on('keypressed_broadcasted', function(note){
-  animateKey(note);  
+  playSound(note);
+  animateKey(note);
 });
 
 var keys = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'capslock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'cedilla', 'tilde_accent', 'close_bracket', 'enter' ];
@@ -17,7 +23,7 @@ var notes = [ 'Db1', 'Eb1', 'Gb1', 'Ab1', 'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2', 'Bb
 var map = {};
 $.each(keys, function (index, key) {
   if(key === 'capslock') key = 20;
-  else if(key === 'cedilla') key = 231;
+  else if(key === 'cedilla') key = 186;
   else if(key === 'tilde_accent') key = 222;
   else if(key === 'close_bracket') key = 220;
   else if(key === 'enter') key = 13;
@@ -27,23 +33,22 @@ $.each(keys, function (index, key) {
 
 $(function(){
   $('div#keyboard>div>div').click(function(){
-    $('audio[src*=' + $(this).data('note') +']')[0].play();
-    socket.emit('keypressed', $(this).data('note'));
+    var note = $(this).data('note');
+    playSound(note);
+    socket.emit('keypressed', note);
   });
+
   $(document).keydown(function(event){
+    console.log(event.which);
     var note = map[event.which];
     if(note){
+      playSound(note);
       animateKey(note);
       socket.emit('keypressed', note);
     }
   });
+
   $('div#keyboard>div>div').on({ 
-    'touchstart' : function(arg1, arg2, arg3, arg4){ 
-      alert(JSON.stringify(arg1));
-      alert(JSON.stringify(arg2));
-      alert(JSON.stringify(arg3));
-      alert(JSON.stringify(arg4));
-    } 
+    'touchstart' : function(){ } 
   });
-  //$(document).keyup(function(){ $key.toggleClass("active"); });
 });

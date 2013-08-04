@@ -13,7 +13,6 @@ var mimes = {
 
 function handler(request, response){
   var filePath = url.parse(decodeURI(request.url)).pathname.slice(1) || 'index.html';
-  console.log('filePath:::::::::::::::::::: ' + filePath);
   fs.exists(filePath, function(exists){
     if(exists){
       fs.readFile(filePath, function(error, data){
