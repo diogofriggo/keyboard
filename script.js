@@ -9,7 +9,6 @@ var keys = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'capslock', 'a', '
 var notes = [ 'Db1', 'Eb1', 'Gb1', 'Ab1', 'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2', 'Bb2', 'C1', 'D1', 'E1', 'F1', 'G1', 'A1', 'B1', 'C2', 'D2', 'E2', 'F2', 'G2', 'A2', 'B2' ];
 var map = {};
 $.each(keys, function (index, key) {
-  fakeMap[key] = notes[index];
   if(key === 'capslock') key = 20;
   else if(key === 'cedilla') key = 231;
   else if(key === 'tilde_accent') key = 222;
