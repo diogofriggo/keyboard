@@ -1,8 +1,15 @@
 var socket = io.connect('http://node-keyboard.herokuapp.com');
 //var socket = io.connect('http://localhost');
 
+function animateKey(note){
+    var $key = $('div#keyboard>div>div[data-note=' + note + ']');
+    $key.toggleClass("active");
+    $('audio[src*=' + note + ']')[0].play();
+    setTimeout(function () { $key.toggleClass("active"); }, 300);
+}
+
 socket.on('keypressed_broadcasted', function(note){
-    $('div#keyboard>div>div[data-note=' + note + ']').click();
+  animateKey(note);  
 });
 
 var keys = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'capslock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'cedilla', 'tilde_accent', 'close_bracket', 'enter' ];
@@ -24,11 +31,19 @@ $(function(){
     socket.emit('keypressed', $(this).data('note'));
   });
   $(document).keydown(function(event){
-    console.log(event.which);
-    var $key = $('div#keyboard>div>div[data-note=' + map[event.which] + ']');
-    $key.toggleClass("active");
-    $key.click();
-    setTimeout(function () { $key.toggleClass("active"); }, 300);
+    var note = map[event.which];
+    if(note){
+      animateKey(note);
+      socket.emit('keypressed', note);
+    }
+  });
+  $('div#keyboard>div>div').on({ 'touchstart' : function(){ 
+    alert('on touchstart');
+    alert($(this));
+  } });
+  $('div#keyboard>div>div').touchstart(function(event){ 
+    alert('touchstart');
+    alert(event);
   });
   //$(document).keyup(function(){ $key.toggleClass("active"); });
 });
