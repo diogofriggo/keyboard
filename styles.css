@@ -1,1 +1,82 @@
-#yay {font-size:5em;background:blue;color:yellow;padding:0.5em}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+body{
+  background: #e3e3e3;
+  margin: 10px;  
+}
+
+div#keyboard {
+  width: 1200px;
+  margin: auto;
+  height: 50%;
+  margin-top: 15%;
+}
+
+div#keyboard div {
+  float: left;  
+}
+
+div#keyboard div.white {  
+  background: white;
+  color: black;
+  height: 400px;
+  width: 80px;
+  text-shadow: 0px 0px 1px black;
+  box-shadow: 0px 8px 0px rgba(210,210,210,1), 
+              0px 12px 12px rgba(0,0,0,.5);
+  line-height: 75em;
+  margin-left: -35px;
+}
+
+div#keyboard div.white.first {  
+  margin-left: 0;
+}
+
+div#keyboard div.black{  
+  background: black;
+  color: white;
+  height: 250px;
+  width: 40px;
+  text-shadow: 0px 0px 1px white;
+  box-shadow: 0px 1px 0px rgba(100,100,100,1),
+              0px 8px 0px rgba(0,0,0,1),
+              0px 10px 8px rgba(0,0,0,.7);
+  line-height: 47em;
+  position: relative;  
+  right: 20%;
+}
+
+div.white, div.black{
+  text-align: center;  
+  font-size: 10px;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+  transition: all .1s ease;
+}
+
+div#keyboard div.white:active,div#keyboard div.white.active {
+  /*box-shadow: 0 0 0 0 rgba(0,0,0,.5);*/
+  box-shadow: 4px 0 4px 0px rgba(0,0,0,.3),
+              -4px 0 4px 0px rgba(0,0,0,.3);
+  height: 408px;
+  line-height: 76em;
+}
+
+div#keyboard div.black:active, div#keyboard div.black.active {
+  box-shadow: 2px 0 4px 0px rgba(0,0,0,.7),
+              -2px 0 4px 0px rgba(0,0,0,.7);
+  height: 258px;
+  line-height: 48em;
+}
+
+div#keyboard div.white.lone {
+  margin-left: 5px;
+}

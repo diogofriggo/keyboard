@@ -1,17 +1,19 @@
 var app = require('http').createServer(handler);
 var path = require('path');
+var url = require('url');
 var fs = require('fs');
 var io = require('socket.io').listen(app);
 
 var mimes = {
   '.js': 'text/javascript',
   '.html': 'text/html',
-  '.css': 'text/css'
+  '.css': 'text/css',
+  '.ogg': 'audio/ogg'
 };
 
 function handler(request, response){
-  var filePath = path.basename(decodeURI(request.url)) || 'index.html';
-  console.log(filePath);
+  var filePath = url.parse(decodeURI(request.url)).pathname.slice(1) || 'index.html';
+  console.log('filePath:::::::::::::::::::: ' + filePath);
   fs.exists(filePath, function(exists){
     if(exists){
       fs.readFile(filePath, function(error, data){
